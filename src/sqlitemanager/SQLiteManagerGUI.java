@@ -10,6 +10,8 @@ import datasetjava.DataTable;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -31,11 +33,24 @@ public class SQLiteManagerGUI extends javax.swing.JDialog {
         this.setTitle("SQLite Manager");
         initComponents();
     }
+    
+    public boolean isFocus = true;
 
     public SQLiteManagerGUI(JFrame host, boolean modal, String title) {
         super(host, modal);
         this.setTitle(title);
         initComponents();
+        
+        this.addWindowListener(new WindowAdapter() {
+
+                public void windowGainedFocus(WindowEvent e) {
+                    isFocus = true;
+                }
+                
+                public void windowLoseFocus(WindowEvent e) {
+                    isFocus = false;
+                }
+            });
     }
 
     private DataSet SQLiteDS;
